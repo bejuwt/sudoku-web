@@ -1,8 +1,8 @@
 :root {
   --accent: #1a73e8;
   --given: #101418;
-  --user: #1a73e8;
-  --error: #d93025;
+  --user: #0b57d0;
+  --error: #c5221f;
   --bg: #f2f4f7;
   --cell-bg: #ffffff;
   --selected: #bdd7f5;
@@ -12,8 +12,8 @@
   --grid-thick: #2b3a55;
   --pad-bg: #e4e9f1;
   --pad-highlight: #d2ddeb;
-  --text: #101418;
-  --muted: #6b7684;
+  --text: #0b0e12;
+  --muted: #5f6b7a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,8 +25,11 @@
     --grid-thick: #9aa6b8;
     --pad-bg: #20262e;
     --pad-highlight: #2b3542;
+    --user: #8ab4f8;
+    --error: #ff6b60;
+    --accent: #8ab4f8;
     --text: #f2f4f7;
-    --muted: #9aa4b2;
+    --muted: #b3bdc9;
   }
   body {
     background: #0b0e12;
@@ -232,14 +235,14 @@ button {
 .cell .value {
   font-size: 6.8cqw;
   line-height: 1;
-  color: var(--accent);
+  color: var(--user);
 }
 .cell.given .value {
   color: var(--text);
   font-weight: 600;
 }
 .cell.error .value {
-  color: #d93025;
+  color: var(--error);
 }
 .cell .notes {
   position: absolute;
@@ -254,8 +257,8 @@ button {
   align-items: center;
   justify-content: center;
   font-size: 2.5cqw;
-  color: var(--accent);
-  opacity: 0.9;
+  color: var(--user);
+  opacity: 0.95;
 }
 
 /* Controls */
