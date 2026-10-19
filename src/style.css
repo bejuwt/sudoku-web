@@ -153,14 +153,18 @@ body {
 
 /* Grid */
 .grid-wrap {
-  display: flex;
-  justify-content: center;
+  display: block;
+  width: 100%;
+}
+#gridHost {
+  width: 100%;
 }
 .grid {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   aspect-ratio: 1 / 1;
   width: 100%;
+  max-width: 100%;
   border: 2px solid var(--grid-thick);
   border-radius: 5px;
   overflow: hidden;
