@@ -11,6 +11,7 @@
   --grid-thin: #c3cad4;
   --grid-thick: #2b3a55;
   --pad-bg: #e4e9f1;
+  --pad-highlight: #d2ddeb;
   --text: #101418;
   --muted: #6b7684;
 }
@@ -23,9 +24,9 @@
     --grid-thin: #38414c;
     --grid-thick: #9aa6b8;
     --pad-bg: #20262e;
+    --pad-highlight: #2b3542;
     --text: #f2f4f7;
     --muted: #9aa4b2;
-    --pad-bg: #20262e;
   }
   body {
     background: #0b0e12;
@@ -45,19 +46,34 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html,
-body {
-  margin: 0;
+html {
+  -webkit-text-size-adjust: 100%;
   height: 100%;
 }
 
 body {
+  margin: 0;
+  height: 100%;
   background: #f2f4f7;
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   display: flex;
   justify-content: center;
   user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+button {
+  touch-action: manipulation;
+  font-family: inherit;
+}
+
+#app {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .app {
@@ -65,8 +81,9 @@ body {
   max-width: 520px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 10px 12px 18px;
+  gap: 14px;
+  padding: calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right))
+    calc(14px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
   min-height: 100vh;
   min-height: 100dvh;
 }
@@ -82,30 +99,35 @@ body {
 .difficulty-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   background: none;
   border: none;
   color: var(--accent);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   cursor: pointer;
-  padding: 6px 4px;
+  min-height: 44px;
+  padding: 6px 6px;
 }
 
 .timer {
   font-variant-numeric: tabular-nums;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 .icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   color: var(--accent);
-  font-size: 22px;
   cursor: pointer;
-  padding: 2px 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px;
 }
 .icon-btn:disabled {
   opacity: 0.3;
@@ -133,10 +155,11 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 12px 14px;
+  min-height: 48px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
 }
 .menu-item:hover {
   background: rgba(127, 127, 127, 0.16);
@@ -162,6 +185,8 @@ body {
 .grid {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  grid-auto-rows: 1fr;
   aspect-ratio: 1 / 1;
   width: 100%;
   max-width: 100%;
@@ -175,10 +200,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
+  min-height: 0;
   background: #fff;
   border-right: 1px solid var(--grid-thin);
   border-bottom: 1px solid var(--grid-thin);
   cursor: pointer;
+  touch-action: manipulation;
 }
 .cell.last-col {
   border-right: none;
@@ -202,7 +230,7 @@ body {
   background: var(--selected);
 }
 .cell .value {
-  font-size: 6.4cqw;
+  font-size: 6.8cqw;
   line-height: 1;
   color: var(--accent);
 }
@@ -225,7 +253,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.3cqw;
+  font-size: 2.5cqw;
   color: var(--accent);
   opacity: 0.9;
 }
@@ -234,24 +262,34 @@ body {
 .controls {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: stretch;
+  gap: 6px;
   padding: 2px 4px;
 }
 .control {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  justify-content: center;
+  gap: 4px;
   background: none;
   border: none;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   flex: 1;
-  padding: 4px;
+  min-height: 52px;
+  padding: 6px 4px;
+  border-radius: 10px;
+}
+.control:active {
+  background: rgba(127, 127, 127, 0.14);
 }
 .control .glyph {
-  font-size: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
   line-height: 1;
 }
 .control.active {
@@ -273,18 +311,21 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 58px;
+  height: 64px;
   background: var(--pad-bg);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   color: var(--accent);
-  font-size: 26px;
+  font-size: 30px;
   line-height: 1.05;
   padding: 0;
 }
+.num:active {
+  background: var(--pad-highlight, rgba(127, 127, 127, 0.2));
+}
 .num .count {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--muted);
 }
@@ -349,14 +390,18 @@ body {
   display: block;
   width: 100%;
   margin-top: 12px;
-  padding: 13px;
+  padding: 15px;
+  min-height: 52px;
   border-radius: 999px;
   border: none;
   background: var(--accent);
   color: #fff;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
+}
+.pill-btn:active {
+  filter: brightness(0.92);
 }
 
 /* Stats */

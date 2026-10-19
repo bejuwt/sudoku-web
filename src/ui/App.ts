@@ -47,7 +47,7 @@ export class App {
     this.statsCard = this.el('#statsCard');
 
     this.el('#gridHost').appendChild(this.buildGrid());
-    this.el('#numpad').appendChild(this.buildNumpad());
+    this.buildNumpad(this.el('#numpad'));
 
     this.wireEvents();
     this.game.startTimer();
@@ -121,18 +121,15 @@ export class App {
     return grid;
   }
 
-  private buildNumpad(): HTMLElement {
-    const pad = document.createElement('div');
-    pad.className = 'numpad';
+  private buildNumpad(host: HTMLElement): void {
     for (let n = 1; n <= 9; n++) {
       const btn = document.createElement('button');
       btn.className = 'num';
       btn.innerHTML = `<span>${n}</span><span class="count"></span>`;
       btn.addEventListener('click', () => this.onNumber(n));
       this.numEls.push(btn);
-      pad.appendChild(btn);
+      host.appendChild(btn);
     }
-    return pad;
   }
 
   private wireEvents(): void {
