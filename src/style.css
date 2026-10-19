@@ -258,7 +258,8 @@ button {
   justify-content: center;
   font-size: 2.5cqw;
   color: var(--user);
-  opacity: 0.95;
+  opacity: 1;
+  font-weight: 600;
 }
 
 /* Controls */
